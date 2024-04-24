@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 // Components
 import FormCadastroAluno from "../../components/Form/FormCadastroAluno";
-import Grid from '../../components/Grid/Grid';
+import GridCadastroAluno from '../../components/Grid/GridCadastroAluno';
 
 const Aluno = () => {
 
@@ -35,7 +35,7 @@ const Aluno = () => {
             <div>
                 <div>Cadastro de Aluno</div>
                 <FormCadastroAluno onEdit={onEdit} setOnEdit={setOnEdit} getAlunos={getAlunos} />
-                <Grid setOnEdit={setOnEdit} alunos={alunos} setAlunos={setAlunos} />
+                <GridCadastroAluno setOnEdit={setOnEdit} alunos={alunos} setAlunos={setAlunos} />
             </div>
         </>
     );

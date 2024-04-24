@@ -3,7 +3,7 @@ import { db } from "../db.js";
 // metodo GET para resgatar todos os exercicios
 export const getExercicio = (_, res) => {
 
-  const q = "SELECT * FROM treinos";
+  const q = "SELECT * FROM exercicios";
 
   db.query(q, (err, data) => {
     if (err) return res.json(err);
@@ -15,12 +15,10 @@ export const getExercicio = (_, res) => {
 // metodo POST para criar um novo exercicio
 export const postExercicio = (req, res) => {
 
-  const q = "INSERT INTO treinos(`exercicio`, `series`, `repeticoes`) VALUES(?)";
+  const q = "INSERT INTO exercicios(`nome`) VALUES(?)";
 
   const values = [
-    req.body.exercicio,
-    req.body.series,
-    req.body.repeticoes,
+    req.body.nome,
   ];
 
   db.query(q, [values], (err) => {
@@ -33,12 +31,10 @@ export const postExercicio = (req, res) => {
 // metodo PUT para editar ou atualizar informações de um exercicio
 export const updateExercicio = (req, res) => {
 
-  const q = "UPDATE treinos SET `exercicio` = ?, `series` = ?, `repeticoes` = ? WHERE `id` = ?";
+  const q = "UPDATE exercicios SET `nome` = ? WHERE `id` = ?";
 
   const values = [
-    req.body.exercicio,
-    req.body.series,
-    req.body.repeticoes,
+    req.body.nome,
   ];
 
   db.query(q, [...values, req.params.id], (err) => {
@@ -51,7 +47,7 @@ export const updateExercicio = (req, res) => {
 // metodo DELETE para deletar o registro de um exercicio
 export const deleteExercicio = (req, res) => {
 
-  const q = "DELETE FROM treinos WHERE `id` = ?";
+  const q = "DELETE FROM exercicios WHERE `id` = ?";
 
   db.query(q, [req.params.id], (err) => {
     if (err) return res.json(err);

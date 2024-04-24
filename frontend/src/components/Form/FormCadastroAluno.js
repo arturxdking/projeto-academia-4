@@ -109,7 +109,7 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
 
       <div className="dados_pessoais">
         <div className="campo">
-          <label>Nome</label>
+          <label>Nome do Aluno</label>
           <input className="input" name="nome" type="text" placeholder="Nome completo" />
         </div>
         <div className="campo">

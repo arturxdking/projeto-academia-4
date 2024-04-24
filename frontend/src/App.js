@@ -16,16 +16,20 @@ import axios from 'axios';
 // pages
 import Home from './pages/Home/Home.js';
 import Aluno from './pages/Aluno/Aluno.js';
+import Professor from './pages/Professor/Professor.js';
+import Exercicio from './pages/Exercicio/Exercicio.js';
 
 function App() {
 
   return (
     <div className="container">
       <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/aluno" element={<Aluno />} />
-          </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/aluno" element={<Aluno />} />
+          <Route path="/professor" element={<Professor />} />
+          <Route path="/exercicio" element={<Exercicio />} />
+        </Routes>
         <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
       </BrowserRouter>
     </div>

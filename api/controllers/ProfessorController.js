@@ -3,7 +3,7 @@ import { db } from "../db.js";
 // metodo GET para resgatar todos os professores
 export const getProfessor = (_, res) => {
 
-  const q = "SELECT * FROM professor";
+  const q = "SELECT * FROM professores";
 
   db.query(q, (err, data) => {
     if (err) return res.json(err);
@@ -15,13 +15,21 @@ export const getProfessor = (_, res) => {
 // metodo POST para criar um novo professor
 export const postProfessor = (req, res) => {
 
-  const q = "INSERT INTO professor(`nome`, `email`, `fone`, `cref`) VALUES(?)";
+  const q = "INSERT INTO professores (`nome`, `cpf`, `cref`, `data_nascimento`, `sexo`, `email`, `telefone`, `cep`, `estado`, `cidade`, `rua`, `numero`) VALUES(?)";
 
   const values = [
     req.body.nome,
-    req.body.email,
-    req.body.fone,
+    req.body.cpf,
     req.body.cref,
+    req.body.data_nascimento,
+    req.body.sexo,
+    req.body.email,
+    req.body.telefone,
+    req.body.cep,
+    req.body.estado,
+    req.body.cidade,
+    req.body.rua,
+    req.body.numero,
   ];
 
   db.query(q, [values], (err) => {
@@ -34,13 +42,21 @@ export const postProfessor = (req, res) => {
 // metodo PUT para editar ou atualizar informações de um professor
 export const updateProfessor = (req, res) => {
 
-  const q = "UPDATE professor SET `nome` = ?, `email` = ?, `fone` = ?, `cref` = ? WHERE `id` = ?";
+  const q = "UPDATE professores SET `nome` = ?, `cpf`= ?, `cref`= ?, `data_nascimento` = ?, `sexo`= ?, `email` = ?, `telefone` = ?, `cep` = ?, `estado`= ?, `cidade`= ?, `rua`= ?, `numero`= ? WHERE `id` = ?";
 
   const values = [
     req.body.nome,
-    req.body.email,
-    req.body.fone,
+    req.body.cpf,
     req.body.cref,
+    req.body.data_nascimento,
+    req.body.sexo,
+    req.body.email,
+    req.body.telefone,
+    req.body.cep,
+    req.body.estado,
+    req.body.cidade,
+    req.body.rua,
+    req.body.numero,
   ];
 
   db.query(q, [...values, req.params.id], (err) => {
@@ -53,7 +69,7 @@ export const updateProfessor = (req, res) => {
 // metodo DELETE para deletar o registro de um professor 
 export const deleteProfessor = (req, res) => {
 
-  const q = "DELETE FROM professor WHERE `id` = ?";
+  const q = "DELETE FROM professores WHERE `id` = ?";
 
   db.query(q, [req.params.id], (err) => {
     if (err) return res.json(err);
