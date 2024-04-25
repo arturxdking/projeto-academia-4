@@ -1,7 +1,3 @@
-# projeto-academia
- ficha de treino de academia
-
-
 CREATE TABLE alunos (
   id int NOT NULL AUTO_INCREMENT,
   nome varchar(255) NOT NULL,
@@ -53,4 +49,12 @@ CREATE TABLE exercicios (
 
 INSERT INTO exercicios (nome)
 VALUES('Supino Inclinado');
+
+
+CREATE TABLE fichatreino (
+    id INT AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    diasemana JSON NOT NULL,
+    PRIMARY KEY(id)
+);
 
