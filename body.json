@@ -1,0 +1,88 @@
+{
+    "fichatreino": {
+        "Domingo": [
+            {
+                "nome": "Supino",
+                "serie": 3,
+                "repeticao": 15
+            },
+            {
+                "nome": "Agachamento",
+                "serie": 4,
+                "repeticao": 10
+            }
+        ],
+        "Segunda-Feira": [
+            {
+                "nome": "Leg Press",
+                "serie": 4,
+                "repeticao": 12
+            },
+            {
+                "nome": "Rosca Direta",
+                "serie": 3,
+                "repeticao": 10
+            }
+        ],
+        "Terça-Feira": [
+            {
+                "nome": "Elevação Lateral",
+                "serie": 3,
+                "repeticao": 12
+            },
+            {
+                "nome": "Tríceps na Polia",
+                "serie": 3,
+                "repeticao": 10
+            }
+        ],
+        "Quarta-Feira": [
+            {
+                "nome": "Pullover",
+                "serie": 3,
+                "repeticao": 12
+            },
+            {
+                "nome": "Panturrilha na Máquina",
+                "serie": 4,
+                "repeticao": 15
+            }
+        ],
+        "Quinta-Feira": [
+            {
+                "nome": "Remada Curvada",
+                "serie": 3,
+                "repeticao": 10
+            },
+            {
+                "nome": "Desenvolvimento Militar",
+                "serie": 4,
+                "repeticao": 8
+            }
+        ],
+        "Sexta-Feira": [
+            {
+                "nome": "Rosca Alternada",
+                "serie": 4,
+                "repeticao": 12
+            },
+            {
+                "nome": "Cadeira Abdominal",
+                "serie": 4,
+                "repeticao": 15
+            }
+        ],
+        "Sábado": [
+            {
+                "nome": "Abdução de Quadril",
+                "serie": 3,
+                "repeticao": 15
+            },
+            {
+                "nome": "Flexão de Braço",
+                "serie": 5,
+                "repeticao": 20
+            }
+        ]
+    }
+}

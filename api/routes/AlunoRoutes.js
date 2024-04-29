@@ -1,9 +1,11 @@
 import express from "express";
-import { getAluno, postAluno, updateAluno, deleteAluno } from "../controllers/AlunoController.js";
+import { getAluno, getAlunoById, postAluno, updateAluno, deleteAluno } from "../controllers/AlunoController.js";
 
 const router = express.Router()
 
 router.get("/", getAluno)
+
+router.get("/:id", getAlunoById)
 
 router.post("/", postAluno)
 

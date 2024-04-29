@@ -42,11 +42,7 @@ const FormFichaTreino = () => {
     return (
         <form>
             <div className="container">
-                <div className='campo'>
-                    <label>Nome da Ficha de Treino</label>
-                    <input className='input' name='nome' type='text' placeholder='Digite o nome da Ficha de Treino' />
-                </div>
-
+                
                 <div className="semana">
                     {Object.keys(exerciciosPorDia).map(dia => (
                         <div className='dia' key={dia}>

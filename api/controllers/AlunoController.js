@@ -15,7 +15,7 @@ export const getAluno = (_, res) => {
 // metodo POST para criar um novo aluno
 export const postAluno = (req, res) => {
 
-  const q = "INSERT INTO alunos (`nome`, `cpf`, `data_nascimento`, `sexo`, `email`, `telefone`, `cep`, `estado`, `cidade`, `rua`, `numero`) VALUES(?)";
+  const q = "INSERT INTO alunos (`nome`, `cpf`, `data_nascimento`, `sexo`, `email`, `telefone`, `cep`, `estado`, `cidade`, `rua`, `numero`, `fichatreino`) VALUES(?)";
 
   const values = [
     req.body.nome,
@@ -29,12 +29,29 @@ export const postAluno = (req, res) => {
     req.body.cidade,
     req.body.rua,
     req.body.numero,
+    req.body.fichatreino,
   ];
 
   db.query(q, [values], (err) => {
     if (err) return res.json(err);
 
     return res.status(200).json("Aluno cadastrado com sucesso.");
+  });
+};
+
+// metodo GET para resgatar um aluno por ID
+export const getAlunoById = (req, res) => {
+  const alunoId = req.params.id;
+  const q = "SELECT * FROM alunos WHERE id = ?";
+
+  db.query(q, [alunoId], (err, data) => {
+    if (err) return res.json(err);
+
+    if (data.length === 0) {
+      return res.status(404).json({ error: "Aluno não encontrado" });
+    }
+
+    return res.status(200).json(data[0]);
   });
 };
 

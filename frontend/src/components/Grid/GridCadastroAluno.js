@@ -34,6 +34,7 @@ const GridCadastroAluno = ({ alunos, setAlunos, setOnEdit }) => {
     <table className="Table">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Nome</th>
           <th>Ações</th>
         </tr>
@@ -41,6 +42,7 @@ const GridCadastroAluno = ({ alunos, setAlunos, setOnEdit }) => {
       <tbody>
         {alunos.map((item, i) => (
           <tr key={i}>
+            <td className="Td" style={{ width: "70%" }}>{item.id}</td>
             <td className="Td" style={{ width: "70%" }}>{item.nome}</td>
             <td className="Td" style={{ width: "30%" }}>
               <FaEdit className="EditButton" onClick={() => handleEdit(item)} />
