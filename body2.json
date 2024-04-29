@@ -1,0 +1,15 @@
+{
+    "id": 7,
+    "nome": "Senhor Barriga",
+    "cpf": "123456789",
+    "data_nascimento": "2024-04-29T03:00:00.000Z",
+    "sexo": "M",
+    "email": "srbarriga@gmail.com",
+    "telefone": "1688885555",
+    "cep": "12345678",
+    "estado": "SP",
+    "cidade": "Franca",
+    "rua": "WWqowqpwoq",
+    "numero": "1234",
+    "fichatreino": "{\"Domingo\": [{\"id\": 1714427544672}], \"Sábado\": [{\"id\": 1714427544672}], \"Sexta-Feira\": [{\"id\": 1714427544672}], \"Quarta-Feira\": [{\"id\": 1714427544672}], \"Quinta-Feira\": [{\"id\": 1714427544672}], \"Terça-Feira\": [{\"id\": 1714427544672}], \"Segunda-Feira\": [{\"id\": 1714427544672}]}"
+}

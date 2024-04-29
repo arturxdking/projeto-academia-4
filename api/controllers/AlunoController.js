@@ -29,7 +29,7 @@ export const postAluno = (req, res) => {
     req.body.cidade,
     req.body.rua,
     req.body.numero,
-    req.body.fichatreino,
+    JSON.stringify(req.body.fichatreino),
   ];
 
   db.query(q, [values], (err) => {
@@ -51,35 +51,65 @@ export const getAlunoById = (req, res) => {
       return res.status(404).json({ error: "Aluno não encontrado" });
     }
 
-    return res.status(200).json(data[0]);
+    return res.status(200).json({
+      ...data[0],
+      fichatreino: JSON.parse(data[0].fichatreino) // Converter para objeto JSON
+    });
+
   });
 };
 
-// metodo PUT para editar ou atualizar informações de um aluno
+// Método PUT para editar ou atualizar informações de um aluno
 export const updateAluno = (req, res) => {
+  const alunoId = req.params.id;
+  const { nome, cpf, data_nascimento, sexo, email, telefone, cep, estado, cidade, rua, numero, fichatreino } = req.body;
 
-  const q = "UPDATE alunos SET `nome` = ?, `cpf`= ?, `data_nascimento` = ?, `sexo`= ?, `email` = ?, `telefone` = ?, `cep` = ?, `estado`= ?, `cidade`= ?, `rua`= ?, `numero`= ? WHERE `id` = ?";
-
-  const values = [
-    req.body.nome,
-    req.body.cpf,
-    req.body.data_nascimento,
-    req.body.sexo,
-    req.body.email,
-    req.body.telefone,
-    req.body.cep,
-    req.body.estado,
-    req.body.cidade,
-    req.body.rua,
-    req.body.numero,
-  ];
-
-  db.query(q, [...values, req.params.id], (err) => {
-    if (err) return res.json(err);
-
-    return res.status(200).json("Aluno atualizado com sucesso.");
-  });
+  // Verificar se a ficha de treino está presente no corpo da requisição
+  if (fichatreino !== undefined) {
+    const q = "UPDATE alunos SET `fichatreino` = ? WHERE `id` = ?";
+    const values = [JSON.stringify(fichatreino), alunoId];
+    db.query(q, values, (err) => {
+      if (err) return res.json(err);
+      return res.status(200).json("Ficha de treino do aluno atualizada com sucesso.");
+    });
+  } else {
+    const q = `
+          UPDATE alunos 
+          SET 
+              nome = ?,
+              cpf = ?,
+              data_nascimento = ?,
+              sexo = ?,
+              email = ?,
+              telefone = ?,
+              cep = ?,
+              estado = ?,
+              cidade = ?,
+              rua = ?,
+              numero = ?
+          WHERE id = ?
+      `;
+    const values = [
+      nome,
+      cpf,
+      data_nascimento,
+      sexo,
+      email,
+      telefone,
+      cep,
+      estado,
+      cidade,
+      rua,
+      numero,
+      alunoId
+    ];
+    db.query(q, values, (err) => {
+      if (err) return res.json(err);
+      return res.status(200).json("Informações do aluno atualizadas com sucesso.");
+    });
+  }
 };
+
 
 // metodo DELETE para deletar o registro de um aluno
 export const deleteAluno = (req, res) => {
