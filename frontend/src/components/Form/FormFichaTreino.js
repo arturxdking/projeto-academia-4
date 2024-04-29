@@ -4,8 +4,15 @@ import './FormFichaTreino.css';
 
 const FormFichaTreino = () => {
     const [exercicios, setExercicios] = useState([]);
-    const [diaDaSemana, setDiaDaSemana] = useState("");
-    const [exerciciosForm, setExerciciosForm] = useState([{ id: Date.now() }]);
+    const [exerciciosPorDia, setExerciciosPorDia] = useState({
+        Domingo: [{ id: Date.now() }],
+        'Segunda-Feira': [{ id: Date.now() }],
+        'Terça-Feira': [{ id: Date.now() }],
+        'Quarta-Feira': [{ id: Date.now() }],
+        'Quinta-Feira': [{ id: Date.now() }],
+        'Sexta-Feira': [{ id: Date.now() }],
+        Sábado: [{ id: Date.now() }]
+    });
 
     useEffect(() => {
         axios.get('http://localhost:8800/exercicio')
@@ -17,54 +24,53 @@ const FormFichaTreino = () => {
             });
     }, []);
 
-    const handleAddExercicio = () => {
-        setExerciciosForm(exerciciosForm.concat({ id: Date.now() }));
+    const handleAddExercicio = (dia) => {
+        const novoExercicio = { id: Date.now() };
+        setExerciciosPorDia({
+            ...exerciciosPorDia,
+            [dia]: [...exerciciosPorDia[dia], novoExercicio]
+        });
     };
 
-    const handleRemoveExercicio = (id) => {
-        if (exerciciosForm.length > 1) {
-            setExerciciosForm(exerciciosForm.filter(ex => ex.id !== id));
-        }
+    const handleRemoveExercicio = (dia, id) => {
+        setExerciciosPorDia({
+            ...exerciciosPorDia,
+            [dia]: exerciciosPorDia[dia].filter(ex => ex.id !== id)
+        });
     };
 
     return (
         <form>
-            <div>
+            <div className="container">
                 <div className='campo'>
                     <label>Nome da Ficha de Treino</label>
                     <input className='input' name='nome' type='text' placeholder='Digite o nome da Ficha de Treino' />
                 </div>
 
-                <div className='grupo-exercicio'>
-                    <div className='dia-semana'>
-                        <select value={diaDaSemana} onChange={(e) => setDiaDaSemana(e.target.value)}>
-                            <option value="" disabled>Selecione o dia da semana</option>
-                            <option value="Domingo">Domingo</option>
-                            <option value="Segunda-Feira">Segunda-Feira</option>
-                            <option value="Terça-Feira">Terça-Feira</option>
-                            <option value="Quarta-Feira">Quarta-Feira</option>
-                            <option value="Quinta-Feira">Quinta-Feira</option>
-                            <option value="Sexta-Feira">Sexta-Feira</option>
-                            <option value="Sábado">Sábado</option>
-                        </select>
-                    </div>
-                    {exerciciosForm.map((exercicio, index) => (
-                        <div key={exercicio.id}>
-                            <button type="button" onClick={() => handleRemoveExercicio(exercicio.id)} disabled={exerciciosForm.length === 1}>-</button>
-                            <select className='exercicio' defaultValue="">
-                                <option value="" disabled>Selecione um exercício</option>
-                                {exercicios.map(exercicio => (
-                                    <option key={exercicio.id} value={exercicio.id}>{exercicio.nome}</option>
+                <div className="semana">
+                    {Object.keys(exerciciosPorDia).map(dia => (
+                        <div className='dia' key={dia}>
+                            <div className='titulo-dia'>{dia}</div>
+                            <div className='grupo-exercicio'>
+                                {exerciciosPorDia[dia].map((exercicio, index) => (
+                                    <div className='grupo-exercicio-esp' key={exercicio.id}>
+                                        <button type="button" onClick={() => handleRemoveExercicio(dia, exercicio.id)}>-</button>
+                                        <select className='exercicio' defaultValue="">
+                                            <option value="" disabled>Selecione um exercício</option>
+                                            {exercicios.map(exercicio => (
+                                                <option key={exercicio.id} value={exercicio.id}>{exercicio.nome}</option>
+                                            ))}
+                                        </select>
+                                        <input className='input-series' type='number' placeholder='Series' />
+                                        <input className='input-repeticoes' type='number' placeholder='Repetições' />
+                                        <button type="button" onClick={() => handleAddExercicio(dia)}>+</button>
+                                    </div>
                                 ))}
-                            </select>
-                            <input className='' name='series' type='text' placeholder='Series'/>
-                            <input className='' name='repeticoes' type='text' placeholder='Repetições'/>
-                            <button type="button" onClick={handleAddExercicio}>+</button>
+                            </div>
                         </div>
                     ))}
                 </div>
             </div>
-
             <button className="botao" type="submit">Salvar</button>
         </form>
     );
