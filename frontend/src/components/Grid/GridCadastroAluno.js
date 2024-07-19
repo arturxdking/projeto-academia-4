@@ -7,26 +7,18 @@ import "./GridCadastroAluno.css";
 const GridCadastroAluno = ({ alunos, setAlunos, setOnEdit }) => {
 
   const handleEdit = (item) => {
-
     setOnEdit(item);
-
   };
 
   const handleDelete = async (id) => {
-
     await axios
       .delete("http://localhost:8800/aluno/" + id)
       .then(({ data }) => {
-
         const newArray = alunos.filter((aluno) => aluno.id !== id);
-
         setAlunos(newArray);
-
         toast.success(data);
-        
       })
       .catch(({ data }) => toast.error(data));
-
     setOnEdit(null);
   };
 
@@ -42,11 +34,11 @@ const GridCadastroAluno = ({ alunos, setAlunos, setOnEdit }) => {
       <tbody>
         {alunos.map((item, i) => (
           <tr key={i}>
-            <td className="Td" style={{ width: "70%" }}>{item.id}</td>
-            <td className="Td" style={{ width: "70%" }}>{item.nome}</td>
-            <td className="Td" style={{ width: "30%" }}>
-              <FaEdit className="EditButton" onClick={() => handleEdit(item)} />
-              <FaTrash className="DeleteButton" onClick={() => handleDelete(item.id)} />
+            <td>{item.id}</td>
+            <td>{item.nome}</td>
+            <td className="TdActions">
+            <FaEdit className="EditButton" onClick={() => handleEdit(item)} />
+            <FaTrash className="DeleteButton" onClick={() => handleDelete(item.id)} />
             </td>
           </tr>
         ))}

@@ -1,0 +1,12 @@
+.App {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  margin-top: 70px; /* Espaço para o header fixo */
+}

@@ -4,14 +4,16 @@ import { toast } from "react-toastify";
 
 import "./FormCadastroAluno.css";
 
-const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
+const estadosBrasil = [
+  "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", 
+  "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
+];
 
+const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
   const ref = useRef();
 
   useEffect(() => {
-
     if (onEdit) {
-
       const aluno = ref.current;
 
       aluno.nome.value = onEdit.nome;
@@ -25,13 +27,10 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
       aluno.cidade.value = onEdit.cidade;
       aluno.rua.value = onEdit.rua;
       aluno.numero.value = onEdit.numero;
-
     }
-
   }, [onEdit]);
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
 
     const aluno = ref.current;
@@ -105,67 +104,74 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
   };
 
   return (
-    <form className="formulario" ref={ref} onSubmit={handleSubmit}>
-
-      <div className="dados_pessoais">
-        <div className="campo">
-          <label>Nome do Aluno</label>
-          <input className="input" name="nome" type="text" placeholder="Nome completo" />
+    <div className="form-cadastro-aluno-container">
+      <form className="formulario" ref={ref} onSubmit={handleSubmit}>
+        <div className="dados_pessoais_nome_cpf">
+          <div className="campo campo_nome">
+            <label>Nome do Aluno</label>
+            <input className="input" name="nome" type="text" placeholder="Nome completo" />
+          </div>
+          <div className="campo campo_cpf">
+            <label>CPF</label>
+            <input className="input" name="cpf" type="text" placeholder="000.000.000-00" />
+          </div>
         </div>
-        <div className="campo">
-          <label>CPF</label>
-          <input className="input" name="cpf" type="text" />
+        <div className="dados_pessoais_nascimento_sexo">
+          <div className="campo campo_nascimento">
+            <label>Nascimento</label>
+            <input className="input" name="data_nascimento" type="date" />
+          </div>
+          <div className="campo campo_sexo">
+            <label>Sexo</label>
+            <select className="input" name="sexo">
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+            </select>
+          </div>
         </div>
-        <div className="campo">
-          <label>Data de Nascimento</label>
-          <input className="input" name="data_nascimento" type="date" />
+        <div className="dados_pessoais_email_telefone">
+          <div className="campo campo_email">
+            <label>E-mail</label>
+            <input className="input" name="email" type="email" placeholder="exemplo@gmail.com"/>
+          </div>
+          <div className="campo campo_telefone">
+            <label>Telefone</label>
+            <input className="input" name="telefone" type="text" />
+          </div>
         </div>
-      </div>
-
-      <div className="dados_pessoais_2">
-        <div className="campo">
-          <label>Sexo</label>
-          <select className="input" name="sexo">
-            <option value="M">Masculino</option>
-            <option value="F">Feminino</option>
-          </select>
+        <div className="endereco1">
+          <div className="campo campo_cep">
+            <label>CEP</label>
+            <input className="input" name="cep" type="text" />
+          </div>
+          <div className="campo campo_estado">
+            <label>Estado</label>
+            <select className="input" name="estado">
+              {estadosBrasil.map((estado) => (
+                <option key={estado} value={estado}>{estado}</option>
+              ))}
+            </select>
+          </div>
+          <div className="campo campo_cidade">
+            <label>Cidade</label>
+            <input className="input" name="cidade" type="text" />
+          </div>
         </div>
-        <div className="campo">
-          <label>E-mail</label>
-          <input className="input" name="email" type="email" />
+        <div className="endereco1">
+          <div className="campo campo_rua">
+            <label>Rua</label>
+            <input className="input" name="rua" type="text" />
+          </div>
+          <div className="campo campo_numero">
+            <label>Número</label>
+            <input className="input" name="numero" type="text" />
+          </div>
         </div>
-        <div className="campo">
-          <label>Telefone</label>
-          <input className="input" name="telefone" type="text" />
+        <div className="botao-container">
+          <button className="botao" type="submit">Salvar</button>
         </div>
-      </div>
-
-      <div className="endereco">
-        <div className="campo">
-          <label>CEP</label>
-          <input className="input" name="cep" type="text" />
-        </div>
-        <div className="campo">
-          <label>Estado</label>
-          <input className="input" name="estado" type="text" />
-        </div>
-        <div className="campo">
-          <label>Cidade</label>
-          <input className="input" name="cidade" type="text" />
-        </div>
-        <div className="campo">
-          <label>Rua</label>
-          <input className="input" name="rua" type="text" />
-        </div>
-        <div className="campo">
-          <label>Número</label>
-          <input className="input" name="numero" type="text" />
-        </div>
-      </div>
-
-      <button className="botao" type="submit">Salvar</button>
-
-    </form >
+      </form>
+    </div>
   );
 };
 
