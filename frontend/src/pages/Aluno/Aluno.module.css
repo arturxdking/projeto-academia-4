@@ -1,0 +1,12 @@
+.Aluno {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  background-color: #f8f8f8;
+  min-height: 100vh;
+}
+
+.Titulo {
+  font-size: 24px;
+  font-weight: bold;
+}

@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 import './Exercicio.css'
 
 // components
-import FormCadastroExercicio from '../../components/Form/FormCadastroExercicio';
-import GridCadastroExercicio from '../../components/Grid/GridCadastroExercicio';
+import FormCadastroExercicio from '../../components/Form/FormCadastroExercicio/FormCadastroExercicio';
+import GridCadastroExercicio from '../../components/Grid/GridCadastroExercicio/GridCadastroExercicio';
 
 const Exercicio = () => {
 

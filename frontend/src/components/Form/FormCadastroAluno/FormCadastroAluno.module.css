@@ -1,0 +1,109 @@
+.form-cadastro-aluno-container {
+  width: 100%;
+  max-width: 80%;
+  padding: 20px;
+  margin: 0 auto; /* Centraliza o formulário horizontalmente */
+  margin-bottom: 20px; /* Reduz a distância entre o formulário e outros componentes */
+}
+
+.formulario {
+  display: block;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.dados_pessoais_nome_cpf,
+.dados_pessoais_email_telefone,
+.endereco1 {
+  display: flex;
+  gap: 10px; /* Reduz o gap entre os campos */
+  margin-bottom: 15px; /* Reduz a margem inferior para menos distância entre seções */
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo_nome {
+  flex: 2;
+}
+
+.campo_cpf {
+  flex: 1;
+}
+
+.campo_nascimento {
+  flex: 1;
+}
+
+.campo_sexo {
+  flex: 1;
+}
+
+.campo_cep {
+  flex: 1;
+}
+
+.campo_estado {
+  flex: 1;
+}
+
+.campo_cidade {
+  flex: 2;
+}
+
+.campo_rua {
+  flex: 2;
+}
+
+.campo_numero {
+  flex: 1;
+}
+
+.campo_email {
+  flex: 0;
+}
+
+.campo_telefone {
+  flex: 0;
+}
+
+.campo label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.campo input,
+.campo select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.botao-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.botao {
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: #1a202c;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.botao:hover {
+  background-color: #4a5568;
+}
