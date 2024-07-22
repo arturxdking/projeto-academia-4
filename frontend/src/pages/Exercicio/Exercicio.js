@@ -3,45 +3,38 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 // styles
-import './Exercicio.css'
+import styles from './Exercicio.module.css';
 
 // components
 import FormCadastroExercicio from '../../components/Form/FormCadastroExercicio/FormCadastroExercicio';
 import GridCadastroExercicio from '../../components/Grid/GridCadastroExercicio/GridCadastroExercicio';
 
 const Exercicio = () => {
+  const [exercicios, setExercicios] = useState([]);
+  const [onEdit, setOnEdit] = useState(null);
 
-    const [exercicios, setExercicios] = useState([]);
-    const [onEdit, setOnEdit] = useState(null);
+  const getExercicios = async () => {
+    try {
+      const res = await axios.get('http://localhost:8800/exercicio');
+      setExercicios(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
-    const getExercicios = async () => {
+  useEffect(() => {
+    getExercicios();
+  }, [setExercicios]);
 
-        try {
-
-            const res = await axios.get('http://localhost:8800/exercicio');
-
-            setExercicios(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
-
-        } catch (error) {
-
-            toast.error(error);
-
-        }
-    };
-
-    useEffect(() => {
-        getExercicios();
-    }, [setExercicios]);
-
-    return (
-        <>
-            <div>
-                <div>Cadastro de Exercícios</div>
-                <FormCadastroExercicio onEdit={onEdit} setOnEdit={setOnEdit} getExercicios={getExercicios} />
-                <GridCadastroExercicio setOnEdit={setOnEdit} exercicios={exercicios} setExercicios={setExercicios} />
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className={styles.Exercicio}>
+        <div className={styles.Titulo}>Cadastro de Exercício</div>
+        <FormCadastroExercicio onEdit={onEdit} setOnEdit={setOnEdit} getExercicios={getExercicios} />
+        <GridCadastroExercicio setOnEdit={setOnEdit} exercicios={exercicios} setExercicios={setExercicios} />
+      </div>
+    </>
+  );
 }
 
 export default Exercicio;

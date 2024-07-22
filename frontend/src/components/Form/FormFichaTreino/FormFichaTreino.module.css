@@ -1,59 +1,65 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    /* Uso total da largura disponível */
 }
 
-.campo {
+.navegacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.input,
-.grupo-exercicio-esp select,
-.grupo-exercicio-esp  {
-    width: 100%;
-    /* Ajusta os elementos para ocuparem todo o espaço disponível */
+.botaoNavegacao {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
 }
 
-.grupo-exercicio-esp input {
-    width: 90px;
-    text-align: center;
-}
-
-.semana {
-    display: flex;
-    flex-direction: column;
-    /* Muda a direção para coluna */
-    gap: 20px;
-    /* Espaçamento entre cada dia da semana */
+.tituloDia {
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .dia {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Alinha os elementos à esquerda */
     border: solid 1px #7e7c7cce;
     border-radius: 10px;
     padding: 10px;
 }
 
-.grupo-exercicio {
+.grupoExercicio {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.grupo-exercicio-esp {
+.grupoExercicioEsp {
     display: flex;
     gap: 5px;
     align-items: center;
 }
 
-.grupo-exercicio-esp button {
-    width: auto;
+.grupoExercicioEsp input {
+    width: 90px;
+    text-align: center;
+}
+
+.grupoExercicioEsp select,
+.grupoExercicioEsp {
+    width: 100%;
+}
+
+.grupoExercicioEsp button {
     padding: 5px 10px;
     border-radius: 5px;
     background-color: #007bff;

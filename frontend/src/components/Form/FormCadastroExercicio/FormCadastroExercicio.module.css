@@ -1,10 +1,9 @@
-/* FormCadastroProfessor.module.css */
-.form-cadastro-professor-container {
+.form-cadastro-exercicio-container {
   width: 100%;
   max-width: 80%;
   padding: 20px;
-  margin: 0 auto; /* Centraliza o formulário horizontalmente */
-  margin-bottom: 20px; /* Reduz a distância entre o formulário e outros componentes */
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .formulario {
@@ -15,17 +14,15 @@
   border-radius: 10px;
 }
 
-.dados_pessoais_nome_cpf,
-.dados_pessoais_email_telefone,
-.endereco1 {
+.dados_pessoais {
   display: flex;
-  gap: 10px; /* Reduz o gap entre os campos */
-  margin-bottom: 15px; /* Reduz a margem inferior para menos distância entre seções */
+  gap: 10px;
+  margin-bottom: 15px;
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 5px;
   background-color: #f9f9f9;
-  flex-wrap: wrap; /* Permite que os itens se ajustem em várias linhas */
+  flex-wrap: wrap;
 }
 
 .campo {
@@ -34,29 +31,10 @@
   flex: 1;
 }
 
-.campo_nome,
-.campo_rua{
+.campo_nome {
   flex: 1;
 }
 
-.campo_cpf,
-.campo_cref,
-.campo_nascimento,
-.campo_sexo {
-  flex: 0;
-}
-
-.campo_cep,
-.campo_estado,
-.campo_cidade,
-.campo_numero,
-.campo_email,
-.campo_telefone {
-  flex: 0;
-}
-
-
-/* Ajuste para telas menores */
 @media (max-width: 768px) {
   .campo {
     flex: 1 1 100%;
@@ -68,8 +46,7 @@
   margin-bottom: 5px;
 }
 
-.campo input,
-.campo select {
+.campo input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

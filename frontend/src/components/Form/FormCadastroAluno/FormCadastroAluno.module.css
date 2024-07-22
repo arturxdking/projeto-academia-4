@@ -2,8 +2,8 @@
   width: 100%;
   max-width: 80%;
   padding: 20px;
-  margin: 0 auto; /* Centraliza o formulário horizontalmente */
-  margin-bottom: 20px; /* Reduz a distância entre o formulário e outros componentes */
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .formulario {
@@ -18,61 +18,46 @@
 .dados_pessoais_email_telefone,
 .endereco1 {
   display: flex;
-  gap: 10px; /* Reduz o gap entre os campos */
-  margin-bottom: 15px; /* Reduz a margem inferior para menos distância entre seções */
+  gap: 10px;
+  margin-bottom: 15px;
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 5px;
   background-color: #f9f9f9;
+  flex-wrap: wrap; /* Permite que os itens se ajustem em várias linhas */
 }
 
 .campo {
   display: flex;
   flex-direction: column;
-}
-
-.campo_nome {
-  flex: 2;
-}
-
-.campo_cpf {
   flex: 1;
 }
 
-.campo_nascimento {
-  flex: 1;
-}
-
-.campo_sexo {
-  flex: 1;
-}
-
-.campo_cep {
-  flex: 1;
-}
-
-.campo_estado {
-  flex: 1;
-}
-
-.campo_cidade {
-  flex: 2;
-}
-
+.campo_nome, 
 .campo_rua {
-  flex: 2;
-}
-
-.campo_numero {
   flex: 1;
 }
 
-.campo_email {
+.campo_cpf,
+.campo_nascimento,
+.campo_sexo{
   flex: 0;
 }
 
+.campo_cep,
+.campo_estado,
+.campo_cidade,
+.campo_numero,
+.campo_email,
 .campo_telefone {
   flex: 0;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+  .campo {
+    flex: 1 1 100%;
+  }
 }
 
 .campo label {

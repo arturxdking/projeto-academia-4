@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './FormFichaTreino.css';
+import styles from './FormFichaTreino.module.css';
+
+const diasDaSemana = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
 
 const FormFichaTreino = () => {
     const [exercicios, setExercicios] = useState([]);
     const [alunoId, setAlunoId] = useState('');
+    const [diaAtual, setDiaAtual] = useState(0);
     const [exerciciosPorDia, setExerciciosPorDia] = useState({
         'Domingo': [],
         'Segunda-Feira': [],
@@ -81,40 +84,50 @@ const FormFichaTreino = () => {
         }
     };
 
+    const diaAnterior = () => {
+        setDiaAtual((prevDia) => (prevDia === 0 ? diasDaSemana.length - 1 : prevDia - 1));
+    };
+
+    const proximoDia = () => {
+        setDiaAtual((prevDia) => (prevDia === diasDaSemana.length - 1 ? 0 : prevDia + 1));
+    };
+
+    const diaSelecionado = diasDaSemana[diaAtual];
+
     return (
         <form onSubmit={handleSubmit}>
-            <div className="container">
-                <div className="semana">
-                    {Object.keys(exerciciosPorDia).map(dia => (
-                        <div className='dia' key={dia}>
-                            <div className='titulo-dia'>{dia}</div>
-                            <div className='grupo-exercicio'>
-                                {exerciciosPorDia[dia].length === 0 ? (
-                                    <button type="button" onClick={() => handleAddExercicio(dia)}>Adicionar Exercício</button>
-                                ) : exerciciosPorDia[dia].map((exercicio, index) => (
-                                    <div className='grupo-exercicio-esp' key={exercicio.id}>
-                                        <button type="button" onClick={() => handleRemoveExercicio(dia, exercicio.id)}>-</button>
-                                        <select className='exercicio' value={exercicio.nome} onChange={(e) => handleInputChange(e, dia, exercicio.id, 'nome')}>
-                                            <option value="" disabled>Selecione um exercício</option>
-                                            {exercicios.map(ex => (
-                                                <option key={ex.id} value={ex.nome}>{ex.nome}</option>
-                                            ))}
-                                        </select>
-                                        <input className='input-series' type='number' value={exercicio.serie} onChange={(e) => handleInputChange(e, dia, exercicio.id, 'serie')} placeholder='Series' />
-                                        <input className='input-repeticoes' type='number' value={exercicio.repeticao} onChange={(e) => handleInputChange(e, dia, exercicio.id, 'repeticao')} placeholder='Repetições' />
-                                        <button type="button" onClick={() => handleAddExercicio(dia)}>+</button>
-                                    </div>
-                                ))}
+            <div className={styles.container}>
+                <div className={styles.navegacao}>
+                    <button type="button" onClick={diaAnterior} className={styles.botaoNavegacao}>{"<"}</button>
+                    <div className={styles.tituloDia}>{diaSelecionado}</div>
+                    <button type="button" onClick={proximoDia} className={styles.botaoNavegacao}>{">"}</button>
+                </div>
+                <div className={styles.dia}>
+                    <div className={styles.grupoExercicio}>
+                        {exerciciosPorDia[diaSelecionado].length === 0 ? (
+                            <button type="button" onClick={() => handleAddExercicio(diaSelecionado)}>Adicionar Exercício</button>
+                        ) : exerciciosPorDia[diaSelecionado].map((exercicio, index) => (
+                            <div className={styles.grupoExercicioEsp} key={exercicio.id}>
+                                <button type="button" onClick={() => handleRemoveExercicio(diaSelecionado, exercicio.id)}>-</button>
+                                <select className={styles.exercicio} value={exercicio.nome} onChange={(e) => handleInputChange(e, diaSelecionado, exercicio.id, 'nome')}>
+                                    <option value="" disabled>Selecione um exercício</option>
+                                    {exercicios.map(ex => (
+                                        <option key={ex.id} value={ex.nome}>{ex.nome}</option>
+                                    ))}
+                                </select>
+                                <input className={styles.inputSeries} type='number' value={exercicio.serie} onChange={(e) => handleInputChange(e, diaSelecionado, exercicio.id, 'serie')} placeholder='Series' />
+                                <input className={styles.inputRepeticoes} type='number' value={exercicio.repeticao} onChange={(e) => handleInputChange(e, diaSelecionado, exercicio.id, 'repeticao')} placeholder='Repetições' />
+                                <button type="button" onClick={() => handleAddExercicio(diaSelecionado)}>+</button>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
             <label>
                 ID do Aluno:
                 <input type="text" value={alunoId} onChange={(e) => setAlunoId(e.target.value)} />
             </label>
-            <button className="botao" type="submit">Salvar</button>
+            <button className={styles.botao} type="submit">Salvar</button>
         </form>
     );
 };
