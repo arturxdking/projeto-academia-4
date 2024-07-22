@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
-
-import "./FormCadastroAluno.css";
+import styles from "./FormCadastroAluno.module.css";
 
 const estadosBrasil = [
-  "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", 
+  "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG",
   "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
 ];
 
@@ -104,71 +103,67 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
   };
 
   return (
-    <div className="form-cadastro-aluno-container">
-      <form className="formulario" ref={ref} onSubmit={handleSubmit}>
-        <div className="dados_pessoais_nome_cpf">
-          <div className="campo campo_nome">
+    <div className={styles['form-cadastro-aluno-container']}>
+      <form className={styles.formulario} ref={ref} onSubmit={handleSubmit}>
+        <div className={styles.dados_pessoais_nome_cpf}>
+          <div className={`${styles.campo} ${styles.campo_nome}`}>
             <label>Nome do Aluno</label>
-            <input className="input" name="nome" type="text" placeholder="Nome completo" />
+            <input className={styles.input} name="nome" type="text" placeholder="Nome completo" />
           </div>
-          <div className="campo campo_cpf">
+          <div className={`${styles.campo} ${styles.campo_cpf}`}>
             <label>CPF</label>
-            <input className="input" name="cpf" type="text" placeholder="000.000.000-00" />
+            <input className={styles.input} name="cpf" type="text" placeholder="000.000.000-00" />
           </div>
-        </div>
-        <div className="dados_pessoais_nascimento_sexo">
-          <div className="campo campo_nascimento">
+          <div className={`${styles.campo} ${styles.campo_nascimento}`}>
             <label>Nascimento</label>
-            <input className="input" name="data_nascimento" type="date" />
+            <input className={styles.input} name="data_nascimento" type="date" />
           </div>
-          <div className="campo campo_sexo">
+          <div className={`${styles.campo} ${styles.campo_sexo}`}>
             <label>Sexo</label>
-            <select className="input" name="sexo">
+            <select className={styles.input} name="sexo">
               <option value="M">Masculino</option>
               <option value="F">Feminino</option>
             </select>
           </div>
         </div>
-        <div className="dados_pessoais_email_telefone">
-          <div className="campo campo_email">
-            <label>E-mail</label>
-            <input className="input" name="email" type="email" placeholder="exemplo@gmail.com"/>
-          </div>
-          <div className="campo campo_telefone">
-            <label>Telefone</label>
-            <input className="input" name="telefone" type="text" />
-          </div>
-        </div>
-        <div className="endereco1">
-          <div className="campo campo_cep">
+        <div className={styles.endereco1}>
+          <div className={`${styles.campo} ${styles.campo_cep}`}>
             <label>CEP</label>
-            <input className="input" name="cep" type="text" />
+            <input className={styles.input} name="cep" type="text" placeholder="00000-000" />
           </div>
-          <div className="campo campo_estado">
+          <div className={`${styles.campo} ${styles.campo_estado}`}>
             <label>Estado</label>
-            <select className="input" name="estado">
+            <select className={styles.input} name="estado">
               {estadosBrasil.map((estado) => (
                 <option key={estado} value={estado}>{estado}</option>
               ))}
             </select>
           </div>
-          <div className="campo campo_cidade">
+          <div className={`${styles.campo} ${styles.campo_cidade}`}>
             <label>Cidade</label>
-            <input className="input" name="cidade" type="text" />
+            <input className={styles.input} name="cidade" type="text" />
           </div>
-        </div>
-        <div className="endereco1">
-          <div className="campo campo_rua">
+          <div className={`${styles.campo} ${styles.campo_rua}`}>
             <label>Rua</label>
-            <input className="input" name="rua" type="text" />
+            <input className={styles.input} name="rua" type="text" />
           </div>
-          <div className="campo campo_numero">
+          <div className={`${styles.campo} ${styles.campo_numero}`}>
             <label>Número</label>
-            <input className="input" name="numero" type="text" />
+            <input className={styles.input} name="numero" type="text" placeholder="0000" />
           </div>
         </div>
-        <div className="botao-container">
-          <button className="botao" type="submit">Salvar</button>
+        <div className={styles.dados_pessoais_email_telefone}>
+          <div className={`${styles.campo} ${styles.campo_email}`}>
+            <label>E-mail</label>
+            <input className={styles.input} name="email" type="email" placeholder="exemplo@gmail.com" />
+          </div>
+          <div className={`${styles.campo} ${styles.campo_telefone}`}>
+            <label>Telefone</label>
+            <input className={styles.input} name="telefone" type="text" placeholder="0000000000"/>
+          </div>
+        </div>
+        <div className={styles['botao-container']}>
+          <button className={styles.botao} type="submit">Salvar</button>
         </div>
       </form>
     </div>

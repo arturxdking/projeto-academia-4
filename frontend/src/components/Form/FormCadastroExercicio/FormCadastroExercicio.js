@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
 // styles
-import './FormCadastroAluno.css';
+//import './FormCadastroAluno.css';
 
 const FormCadastroExercicio = ({ getExercicios, onEdit, setOnEdit }) => {
 

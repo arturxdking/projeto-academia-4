@@ -1,46 +1,58 @@
 .Table {
   box-shadow: 0px 0px 5px #ccc;
   border-radius: 5px;
-  padding: 10px;
-  width: 100%;
   background-color: #fff;
-  margin: 20px 0;
-  max-width: 800px;
+  width: 100%;
+  max-width: 80%;
   border-collapse: collapse; /* Garante que as bordas sejam compartilhadas entre as células */
 }
 
 th, td {
   border: 1px solid #ddd; /* Adiciona borda às células */
-  padding: 5px;
   text-align: center; /* Centraliza o texto em todas as células */
 }
 
 th {
   background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
   font-weight: bold;
+  padding: 3px;
 }
 
 tr:nth-child(even) {
   background-color: #f9f9f9; /* Cor de fundo para linhas pares */
 }
 
+td:nth-child(2) {
+  text-align: left;
+  padding-left: 30px;
+  width: 70%;
+}
+
+td:nth-child(3) {
+  text-align: center;
+  width: 10%;
+}
+
+td:nth-child(4) {
+  text-align: center;
+  width: 10%;
+}
+
 tr:hover {
   background-color: #ddd; /* Cor de fundo ao passar o mouse */
 }
 
-.EditButton,
-.DeleteButton {
+.EditButton {
   cursor: pointer;
-  color: #ccc; 
-  padding: 5px 0px;
+  padding-top: 2px;
 }
 
 .DeleteButton {
-  color: #ccc; 
+  cursor: pointer;
+  padding-top: 2px;
 }
 
 .TdActions {
-  display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }

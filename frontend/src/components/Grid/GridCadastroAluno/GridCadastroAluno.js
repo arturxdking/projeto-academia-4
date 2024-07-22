@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
-import "./GridCadastroAluno.css";
+import styles from "./GridCadastroAluno.module.css";
 
 const GridCadastroAluno = ({ alunos, setAlunos, setOnEdit }) => {
 
@@ -23,12 +23,13 @@ const GridCadastroAluno = ({ alunos, setAlunos, setOnEdit }) => {
   };
 
   return (
-    <table className="Table">
+    <table className={styles.Table}>
       <thead>
         <tr>
           <th>ID</th>
-          <th>Nome</th>
-          <th>Ações</th>
+          <th>Nome do Aluno</th>
+          <th>Editar</th>
+          <th>Deletar</th>
         </tr>
       </thead>
       <tbody>
@@ -36,9 +37,11 @@ const GridCadastroAluno = ({ alunos, setAlunos, setOnEdit }) => {
           <tr key={i}>
             <td>{item.id}</td>
             <td>{item.nome}</td>
-            <td className="TdActions">
-            <FaEdit className="EditButton" onClick={() => handleEdit(item)} />
-            <FaTrash className="DeleteButton" onClick={() => handleDelete(item.id)} />
+            <td className={styles.TdActions}>
+              <FaEdit className={styles.EditButton} onClick={() => handleEdit(item)} />
+            </td>
+            <td className={styles.TdActions}>
+              <FaTrash className={styles.DeleteButton} onClick={() => handleDelete(item.id)} />
             </td>
           </tr>
         ))}

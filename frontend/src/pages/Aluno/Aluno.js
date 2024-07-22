@@ -3,11 +3,11 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 // style
-import './Aluno.css';
+import styles from './Aluno.module.css';
 
 // Components
-import FormCadastroAluno from "../../components/Form/FormCadastroAluno";
-import GridCadastroAluno from '../../components/Grid/GridCadastroAluno';
+import FormCadastroAluno from "../../components/Form/FormCadastroAluno/FormCadastroAluno";
+import GridCadastroAluno from '../../components/Grid/GridCadastroAluno/GridCadastroAluno';
 
 const Aluno = () => {
   const [alunos, setAlunos] = useState([]);
@@ -28,8 +28,8 @@ const Aluno = () => {
 
   return (
     <>
-      <div className="Aluno">
-        <div>Cadastro de Aluno</div>
+      <div className={styles.Aluno}>
+        <div className={styles.Titulo}>Cadastro de Aluno</div>
         <FormCadastroAluno onEdit={onEdit} setOnEdit={setOnEdit} getAlunos={getAlunos} />
         <GridCadastroAluno setOnEdit={setOnEdit} alunos={alunos} setAlunos={setAlunos} />
       </div>

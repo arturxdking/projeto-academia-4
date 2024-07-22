@@ -1,8 +1,8 @@
 import React from 'react'
 
 // components
-import FormFichaTreino from '../../components/Form/FormFichaTreino';
-import FormBuscaAluno from '../../components/Form/FormBuscaAluno';
+import FormFichaTreino from '../../components/Form/FormFichaTreino/FormFichaTreino';
+import FormBuscaAluno from '../../components/Form/FormBuscaAluno/FormBuscaAluno';
 
 const FichaTreino = () => {
     return (
