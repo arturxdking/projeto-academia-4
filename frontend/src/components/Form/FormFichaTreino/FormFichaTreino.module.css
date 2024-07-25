@@ -1,40 +1,52 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    width: 800px;
+    max-width: 80%;
+    padding: 10px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .navegacao {
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* Espaçamento fixo para os botões de navegação */
     align-items: center;
-    margin-bottom: 20px;
+    width: 100%;
 }
 
 .botaoNavegacao {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
+    background-color: transparent;
+    color: #1a202c;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 10px;
+    font-size: 48px;
+    font-weight: bold;
+    font-family: poppins;
+}
+
+.botaoNavegacao:hover {
+    color: #7e7c7cce;
 }
 
 .tituloDia {
     font-size: 24px;
     font-weight: bold;
+    flex-grow: 1; /* Garante que o título ocupe o espaço restante */
+    text-align: center; /* Centraliza o título */
 }
 
 .dia {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    border: solid 1px #7e7c7cce;
-    border-radius: 10px;
+    justify-content: center;
+    border-radius: 5px;
     padding: 10px;
+    width: 0 auto; /* Ajustado para 100% */
+    border: 1px solid #eee;
+    background-color: #f9f9f9;
 }
 
 .grupoExercicio {
@@ -45,34 +57,75 @@
 
 .grupoExercicioEsp {
     display: flex;
-    gap: 5px;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Permite que os elementos internos se ajustem em várias linhas, se necessário */
 }
 
-.grupoExercicioEsp input {
-    width: 90px;
+.exercicio {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     text-align: center;
 }
 
-.grupoExercicioEsp select,
-.grupoExercicioEsp {
-    width: 100%;
+.inputSeries,
+.inputRepeticoes {
+    flex: 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    min-width: 80px; /* Define uma largura mínima para os inputs */
 }
 
 .grupoExercicioEsp button {
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #1a202c;
     color: white;
     border: none;
     cursor: pointer;
+    
+}
+
+.grupoExercicioEsp button:hover {
+    background-color: #4a5568;
+}
+
+.botaoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Centraliza o botão no mesmo alinhamento do formulário */
 }
 
 .botao {
-    margin-top: 20px;
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #1a202c;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    
+}
+
+.botao:hover {
+    background-color: #4a5568;
+}
+
+@media (max-width: 768px) {
+    .grupoExercicioEsp {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .grupoExercicioEsp button {
+        margin-left: 0;
+        margin-top: 5px;
+    }
 }

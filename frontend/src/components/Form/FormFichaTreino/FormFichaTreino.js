@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify'; // Adicionando importação do toast
 import styles from './FormFichaTreino.module.css';
 
 const diasDaSemana = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
 
-const FormFichaTreino = () => {
+const FormFichaTreino = ({ alunoId, fichaTreino }) => {
     const [exercicios, setExercicios] = useState([]);
-    const [alunoId, setAlunoId] = useState('');
     const [diaAtual, setDiaAtual] = useState(0);
     const [exerciciosPorDia, setExerciciosPorDia] = useState({
         'Domingo': [],
@@ -24,9 +24,18 @@ const FormFichaTreino = () => {
                 setExercicios(response.data);
             })
             .catch(error => {
-                console.error('Erro ao buscar exercícios', error);
+                toast.error('Erro ao buscar exercícios'); // Mensagem de erro
             });
     }, []);
+
+    useEffect(() => {
+        if (fichaTreino) {
+            setExerciciosPorDia(prev => ({
+                ...prev,
+                ...fichaTreino
+            }));
+        }
+    }, [fichaTreino]);
 
     const handleAddExercicio = (dia) => {
         const novoExercicio = {
@@ -78,9 +87,9 @@ const FormFichaTreino = () => {
             const response = await axios.put(`http://localhost:8800/aluno/${alunoId}`, {
                 fichatreino: fichaTreino
             });
-            console.log(response.data);
+            toast.success('Ficha de treino salva com sucesso'); // Mensagem de sucesso
         } catch (error) {
-            console.error('Erro ao enviar ficha de treino', error);
+            toast.error('Erro ao enviar ficha de treino'); // Mensagem de erro
         }
     };
 
@@ -104,9 +113,9 @@ const FormFichaTreino = () => {
                 </div>
                 <div className={styles.dia}>
                     <div className={styles.grupoExercicio}>
-                        {exerciciosPorDia[diaSelecionado].length === 0 ? (
-                            <button type="button" onClick={() => handleAddExercicio(diaSelecionado)}>Adicionar Exercício</button>
-                        ) : exerciciosPorDia[diaSelecionado].map((exercicio, index) => (
+                        {exerciciosPorDia[diaSelecionado]?.length === 0 ? (
+                            <button className={styles.botao} type="button" onClick={() => handleAddExercicio(diaSelecionado)}>Adicionar Exercício</button>
+                        ) : exerciciosPorDia[diaSelecionado]?.map((exercicio, index) => (
                             <div className={styles.grupoExercicioEsp} key={exercicio.id}>
                                 <button type="button" onClick={() => handleRemoveExercicio(diaSelecionado, exercicio.id)}>-</button>
                                 <select className={styles.exercicio} value={exercicio.nome} onChange={(e) => handleInputChange(e, diaSelecionado, exercicio.id, 'nome')}>
@@ -123,11 +132,9 @@ const FormFichaTreino = () => {
                     </div>
                 </div>
             </div>
-            <label>
-                ID do Aluno:
-                <input type="text" value={alunoId} onChange={(e) => setAlunoId(e.target.value)} />
-            </label>
-            <button className={styles.botao} type="submit">Salvar</button>
+            <div className={styles.botaoContainer}>
+                <button className={styles.botao} type="submit">Salvar</button>
+            </div>
         </form>
     );
 };

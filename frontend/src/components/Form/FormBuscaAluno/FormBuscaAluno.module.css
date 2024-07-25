@@ -1,0 +1,96 @@
+.form-busca-aluno-container {
+    width: 100%;
+    max-width: 80%;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.dados_pessoais {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 0 auto;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+}
+
+.campo_nome {
+    position: relative;
+}
+
+.campo label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.campo input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 15%;
+    text-align: center;
+}
+
+.aluno-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: normal;
+    color: #333;
+    width: 100%;
+    padding-top: 10px;
+}
+
+.aluno-info p {
+    display: flex;
+    justify-content: center;
+    margin: 2px 0;
+}
+
+.botao-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.botao {
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #1a202c;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.botao:hover {
+    background-color: #4a5568;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    color: red;
+    width: 100%;
+}
