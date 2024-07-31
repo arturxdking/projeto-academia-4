@@ -14,8 +14,13 @@ const Aluno = () => {
   const [onEdit, setOnEdit] = useState(null);
 
   const getAlunos = async () => {
+    const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('http://localhost:8800/aluno');
+      const res = await axios.get('http://localhost:8800/aluno', {
+        headers: {
+          'x-access-token': token,
+        },
+      });
       setAlunos(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);

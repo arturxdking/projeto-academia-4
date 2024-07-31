@@ -1,9 +1,13 @@
-import React from 'react';
+// /frontend/src/components/Header/Header.js
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaUser, FaIdBadge, FaDumbbell, FaClipboardList } from 'react-icons/fa';
+import { FaHome, FaUser, FaIdBadge, FaDumbbell, FaClipboardList, FaUserCircle } from 'react-icons/fa';
+import { AuthContext } from '../../contexts/AuthContext';
 import styles from './Header.module.css';
 
 const Header = () => {
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
   return (
     <header className={styles.header}>
       <nav>
@@ -38,6 +42,12 @@ const Header = () => {
               <span className={styles.navText}>Ficha de Treino</span>
             </Link>
           </li>
+          {isAuthenticated && (
+            <li className={styles.userIcon} onClick={logout}>
+              <FaUserCircle className={styles.icon} />
+              <span className={styles.navText}>Logout</span>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
