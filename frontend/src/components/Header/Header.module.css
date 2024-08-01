@@ -47,6 +47,22 @@
   display: inline;
 }
 
+.logoutButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.5s ease, transform 0.5s ease;
+}
+
+.logoutButton:hover {
+  color: #f0a500;
+  transform: scale(1.05);
+}
+
 .formulario {
   display: block;
   background-color: #fff;

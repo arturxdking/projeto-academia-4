@@ -22,26 +22,36 @@ const FormCadastroExercicio = ({ getExercicios, onEdit, setOnEdit }) => {
       return toast.warn("Preencha todos os campos!");
     }
 
-    if (onEdit) {
-      await axios
-        .put("http://localhost:8800/exercicio/" + onEdit.id, {
-          nome: exercicio.nome.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
-    } else {
-      await axios
-        .post("http://localhost:8800/exercicio", {
-          nome: exercicio.nome.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
+    const config = {
+      headers: {
+        'x-access-token': localStorage.getItem('token'), // Inclui o token na requisição
+      },
+    };
+
+    try {
+      if (onEdit) {
+        const response = await axios.put(
+          `http://localhost:8800/exercicio/${onEdit.id}`,
+          { nome: exercicio.nome.value },
+          config
+        );
+        toast.success(response.data);
+      } else {
+        const response = await axios.post(
+          "http://localhost:8800/exercicio",
+          { nome: exercicio.nome.value },
+          config
+        );
+        toast.success(response.data);
+      }
+
+      exercicio.nome.value = "";
+
+      setOnEdit(null);
+      getExercicios();
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
     }
-
-    exercicio.nome.value = "";
-
-    setOnEdit(null);
-    getExercicios();
   };
 
   return (

@@ -11,10 +11,14 @@ function FormBuscaAluno({ setAlunoId, setFichaTreino }) {
     if (inputAlunoId !== '') {
       const fetchAluno = async () => {
         try {
-          const response = await axios.get(`http://localhost:8800/aluno/${inputAlunoId}`);
+          const response = await axios.get(`http://localhost:8800/aluno/${inputAlunoId}`, {
+            headers: {
+              'x-access-token': localStorage.getItem('token'), // Inclui o token na requisição
+            },
+          });
           setAluno(response.data);
           setAlunoId(inputAlunoId);
-          setFichaTreino(response.data.fichatreino || {}); // Passa a ficha de treino
+          setFichaTreino(response.data.fichatreino || {});
           setError('');
         } catch (err) {
           setError('Aluno não encontrado');

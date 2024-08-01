@@ -52,59 +52,73 @@ const FormCadastroProfessor = ({ getProfessores, onEdit, setOnEdit }) => {
       return toast.warn("Preencha todos os campos!");
     }
 
-    if (onEdit) {
-      await axios
-        .put("http://localhost:8800/professor/" + onEdit.id, {
-          nome: professor.nome.value,
-          cpf: professor.cpf.value,
-          cref: professor.cref.value,
-          data_nascimento: professor.data_nascimento.value,
-          sexo: professor.sexo.value,
-          email: professor.email.value,
-          telefone: professor.telefone.value,
-          cep: professor.cep.value,
-          estado: professor.estado.value,
-          cidade: professor.cidade.value,
-          rua: professor.rua.value,
-          numero: professor.numero.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
-    } else {
-      await axios
-        .post("http://localhost:8800/professor", {
-          nome: professor.nome.value,
-          cpf: professor.cpf.value,
-          cref: professor.cref.value,
-          data_nascimento: professor.data_nascimento.value,
-          sexo: professor.sexo.value,
-          email: professor.email.value,
-          telefone: professor.telefone.value,
-          cep: professor.cep.value,
-          estado: professor.estado.value,
-          cidade: professor.cidade.value,
-          rua: professor.rua.value,
-          numero: professor.numero.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
+    const config = {
+      headers: {
+        'x-access-token': localStorage.getItem('token'), // Inclui o token na requisição
+      },
+    };
+
+    try {
+      if (onEdit) {
+        const response = await axios.put(
+          `http://localhost:8800/professor/${onEdit.id}`,
+          {
+            nome: professor.nome.value,
+            cpf: professor.cpf.value,
+            cref: professor.cref.value,
+            data_nascimento: professor.data_nascimento.value,
+            sexo: professor.sexo.value,
+            email: professor.email.value,
+            telefone: professor.telefone.value,
+            cep: professor.cep.value,
+            estado: professor.estado.value,
+            cidade: professor.cidade.value,
+            rua: professor.rua.value,
+            numero: professor.numero.value,
+          },
+          config
+        );
+        toast.success(response.data);
+      } else {
+        const response = await axios.post(
+          "http://localhost:8800/professor",
+          {
+            nome: professor.nome.value,
+            cpf: professor.cpf.value,
+            cref: professor.cref.value,
+            data_nascimento: professor.data_nascimento.value,
+            sexo: professor.sexo.value,
+            email: professor.email.value,
+            telefone: professor.telefone.value,
+            cep: professor.cep.value,
+            estado: professor.estado.value,
+            cidade: professor.cidade.value,
+            rua: professor.rua.value,
+            numero: professor.numero.value,
+          },
+          config
+        );
+        toast.success(response.data);
+      }
+
+      professor.nome.value = "";
+      professor.cpf.value = "";
+      professor.cref.value = "";
+      professor.data_nascimento.value = "";
+      professor.sexo.value = "";
+      professor.email.value = "";
+      professor.telefone.value = "";
+      professor.cep.value = "";
+      professor.estado.value = "";
+      professor.cidade.value = "";
+      professor.rua.value = "";
+      professor.numero.value = "";
+
+      setOnEdit(null);
+      getProfessores();
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
     }
-
-    professor.nome.value = "";
-    professor.cpf.value = "";
-    professor.cref.value = "";
-    professor.data_nascimento.value = "";
-    professor.sexo.value = "";
-    professor.email.value = "";
-    professor.telefone.value = "";
-    professor.cep.value = "";
-    professor.estado.value = "";
-    professor.cidade.value = "";
-    professor.rua.value = "";
-    professor.numero.value = "";
-
-    setOnEdit(null);
-    getProfessores();
   };
 
   return (

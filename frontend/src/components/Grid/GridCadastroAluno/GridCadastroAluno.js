@@ -11,14 +11,19 @@ const GridCadastroAluno = ({ alunos, setAlunos, setOnEdit }) => {
   };
 
   const handleDelete = async (id) => {
-    await axios
-      .delete("http://localhost:8800/aluno/" + id)
-      .then(({ data }) => {
-        const newArray = alunos.filter((aluno) => aluno.id !== id);
-        setAlunos(newArray);
-        toast.success(data);
-      })
-      .catch(({ data }) => toast.error(data));
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.delete(`http://localhost:8800/aluno/${id}`, {
+        headers: {
+          'x-access-token': token, // Inclui o token na requisição
+        },
+      });
+      const newArray = alunos.filter((aluno) => aluno.id !== id);
+      setAlunos(newArray);
+      toast.success(response.data);
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
     setOnEdit(null);
   };
 

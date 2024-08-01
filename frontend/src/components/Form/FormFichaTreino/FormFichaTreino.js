@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify'; // Adicionando importação do toast
+import { toast } from 'react-toastify';
 import styles from './FormFichaTreino.module.css';
 
 const diasDaSemana = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
@@ -19,7 +19,11 @@ const FormFichaTreino = ({ alunoId, fichaTreino }) => {
     });
 
     useEffect(() => {
-        axios.get('http://localhost:8800/exercicio')
+        axios.get('http://localhost:8800/exercicio', {
+            headers: {
+              'x-access-token': localStorage.getItem('token'), // Inclui o token na requisição
+            },
+        })
             .then(response => {
                 setExercicios(response.data);
             })
@@ -86,6 +90,10 @@ const FormFichaTreino = ({ alunoId, fichaTreino }) => {
 
             const response = await axios.put(`http://localhost:8800/aluno/${alunoId}`, {
                 fichatreino: fichaTreino
+            }, {
+                headers: {
+                    'x-access-token': localStorage.getItem('token'), // Inclui o token na requisição
+                },
             });
             toast.success('Ficha de treino salva com sucesso'); // Mensagem de sucesso
         } catch (error) {

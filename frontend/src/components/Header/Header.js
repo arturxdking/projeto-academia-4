@@ -1,4 +1,3 @@
-// /frontend/src/components/Header/Header.js
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaUser, FaIdBadge, FaDumbbell, FaClipboardList, FaUserCircle } from 'react-icons/fa';
@@ -43,9 +42,11 @@ const Header = () => {
             </Link>
           </li>
           {isAuthenticated && (
-            <li className={styles.userIcon} onClick={logout}>
-              <FaUserCircle className={styles.icon} />
-              <span className={styles.navText}>Logout</span>
+            <li>
+              <button className={styles.logoutButton} onClick={logout}>
+                <FaUserCircle className={styles.icon} />
+                <span className={styles.navText}>Logout</span>
+              </button>
             </li>
           )}
         </ul>

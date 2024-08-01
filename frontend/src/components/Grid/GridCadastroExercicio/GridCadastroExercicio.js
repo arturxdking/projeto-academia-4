@@ -10,14 +10,21 @@ const GridCadastroExercicio = ({ exercicios, setExercicios, setOnEdit }) => {
   };
 
   const handleDelete = async (id) => {
-    await axios
-      .delete("http://localhost:8800/exercicio/" + id)
-      .then(({ data }) => {
-        const newArray = exercicios.filter((exercicio) => exercicio.id !== id);
-        setExercicios(newArray);
-        toast.success(data);
-      })
-      .catch(({ data }) => toast.error(data));
+    const config = {
+      headers: {
+        'x-access-token': localStorage.getItem('token'), // Inclui o token na requisição
+      },
+    };
+
+    try {
+      const response = await axios.delete(`http://localhost:8800/exercicio/${id}`, config);
+      const newArray = exercicios.filter((exercicio) => exercicio.id !== id);
+      setExercicios(newArray);
+      toast.success(response.data);
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
+
     setOnEdit(null);
   };
 

@@ -50,56 +50,70 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
       return toast.warn("Preencha todos os campos!");
     }
 
-    if (onEdit) {
-      await axios
-        .put("http://localhost:8800/aluno/" + onEdit.id, {
-          nome: aluno.nome.value,
-          cpf: aluno.cpf.value,
-          data_nascimento: aluno.data_nascimento.value,
-          sexo: aluno.sexo.value,
-          email: aluno.email.value,
-          telefone: aluno.telefone.value,
-          cep: aluno.cep.value,
-          estado: aluno.estado.value,
-          cidade: aluno.cidade.value,
-          rua: aluno.rua.value,
-          numero: aluno.numero.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
-    } else {
-      await axios
-        .post("http://localhost:8800/aluno", {
-          nome: aluno.nome.value,
-          cpf: aluno.cpf.value,
-          data_nascimento: aluno.data_nascimento.value,
-          sexo: aluno.sexo.value,
-          email: aluno.email.value,
-          telefone: aluno.telefone.value,
-          cep: aluno.cep.value,
-          estado: aluno.estado.value,
-          cidade: aluno.cidade.value,
-          rua: aluno.rua.value,
-          numero: aluno.numero.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
+    const config = {
+      headers: {
+        'x-access-token': localStorage.getItem('token'), // Inclui o token na requisição
+      },
+    };
+
+    try {
+      if (onEdit) {
+        const response = await axios.put(
+          `http://localhost:8800/aluno/${onEdit.id}`,
+          {
+            nome: aluno.nome.value,
+            cpf: aluno.cpf.value,
+            data_nascimento: aluno.data_nascimento.value,
+            sexo: aluno.sexo.value,
+            email: aluno.email.value,
+            telefone: aluno.telefone.value,
+            cep: aluno.cep.value,
+            estado: aluno.estado.value,
+            cidade: aluno.cidade.value,
+            rua: aluno.rua.value,
+            numero: aluno.numero.value,
+          },
+          config
+        );
+        toast.success(response.data);
+      } else {
+        const response = await axios.post(
+          "http://localhost:8800/aluno",
+          {
+            nome: aluno.nome.value,
+            cpf: aluno.cpf.value,
+            data_nascimento: aluno.data_nascimento.value,
+            sexo: aluno.sexo.value,
+            email: aluno.email.value,
+            telefone: aluno.telefone.value,
+            cep: aluno.cep.value,
+            estado: aluno.estado.value,
+            cidade: aluno.cidade.value,
+            rua: aluno.rua.value,
+            numero: aluno.numero.value,
+          },
+          config
+        );
+        toast.success(response.data);
+      }
+
+      aluno.nome.value = "";
+      aluno.cpf.value = "";
+      aluno.data_nascimento.value = "";
+      aluno.sexo.value = "";
+      aluno.email.value = "";
+      aluno.telefone.value = "";
+      aluno.cep.value = "";
+      aluno.estado.value = "";
+      aluno.cidade.value = "";
+      aluno.rua.value = "";
+      aluno.numero.value = "";
+
+      setOnEdit(null);
+      getAlunos();
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
     }
-
-    aluno.nome.value = "";
-    aluno.cpf.value = "";
-    aluno.data_nascimento.value = "";
-    aluno.sexo.value = "";
-    aluno.email.value = "";
-    aluno.telefone.value = "";
-    aluno.cep.value = "";
-    aluno.estado.value = "";
-    aluno.cidade.value = "";
-    aluno.rua.value = "";
-    aluno.numero.value = "";
-
-    setOnEdit(null);
-    getAlunos();
   };
 
   return (

@@ -10,14 +10,18 @@ const GridCadastroProfessor = ({ professores, setProfessores, setOnEdit }) => {
   };
 
   const handleDelete = async (id) => {
-    await axios
-      .delete("http://localhost:8800/professor/" + id)
-      .then(({ data }) => {
-        const newArray = professores.filter((professor) => professor.id !== id);
-        setProfessores(newArray);
-        toast.success(data);
-      })
-      .catch(({ data }) => toast.error(data));
+    try {
+      const response = await axios.delete(`http://localhost:8800/professor/${id}`, {
+        headers: {
+          'x-access-token': localStorage.getItem('token'), // Inclui o token na requisição
+        },
+      });
+      const newArray = professores.filter((professor) => professor.id !== id);
+      setProfessores(newArray);
+      toast.success(response.data);
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
     setOnEdit(null);
   };
 
