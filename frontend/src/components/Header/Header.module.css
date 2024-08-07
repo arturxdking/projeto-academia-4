@@ -63,88 +63,41 @@
   transform: scale(1.05);
 }
 
-.formulario {
-  display: block;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  transition: all 0.5s ease;
-}
-
-.dados_pessoais,
-.endereco1 {
+.alunoInfo {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
-.campo {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+.profilePic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #f0a500;
 }
 
-.campo_nome, 
-.campo_rua {
-  flex: 1;
-}
-
-.campo_cpf,
-.campo_nascimento,
-.campo_sexo {
-  flex: 1;
-}
-
-.campo_cep,
-.campo_estado,
-.campo_cidade,
-.campo_numero,
-.campo_email,
-.campo_telefone {
-  flex: 1;
-}
-
-@media (max-width: 768px) {
-  .campo {
-    flex: 1 1 100%;
-  }
-}
-
-.campo label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.campo input,
-.campo select {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-}
-
-.botao-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.botao {
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  background-color: #1a202c;
+.alunoNome {
+  font-size: 1rem;
   color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  transition: background-color 0.5s ease;
 }
 
-.botao:hover {
-  background-color: #4a5568;
+/* Additional styling for mobile responsiveness if needed */
+@media (max-width: 768px) {
+  .navText {
+    display: inline; /* For smaller screens, always display the text */
+  }
+
+  .navList {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profilePic {
+    width: 30px;
+    height: 30px;
+  }
+
+  .alunoNome {
+    font-size: 0.9rem;
+  }
 }

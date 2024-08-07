@@ -9,8 +9,10 @@ import Aluno from './pages/Aluno/Aluno.js';
 import Professor from './pages/Professor/Professor.js';
 import Exercicio from './pages/Exercicio/Exercicio.js';
 import FichaTreino from './pages/FichaTreino/FichaTreino.js';
+import FichaDoAluno from './pages/FichaDoAluno/FichaDoAluno.js';
 import Login from './pages/Login/Login';
 import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
   return (
@@ -19,12 +21,14 @@ function App() {
         <HeaderWrapper /> {/* Component que gerencia o Header */}
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/aluno" element={<Aluno />} />
-            <Route path="/professor" element={<Professor />} />
-            <Route path="/exercicio" element={<Exercicio />} />
-            <Route path="/fichatreino" element={<FichaTreino />} />
             <Route path="/login" element={<Login />} />
+            {/* Encapsulando as rotas protegidas dentro do PrivateRoute */}
+            <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+            <Route path="/aluno" element={<PrivateRoute><Aluno /></PrivateRoute>} />
+            <Route path="/professor" element={<PrivateRoute><Professor /></PrivateRoute>} />
+            <Route path="/exercicio" element={<PrivateRoute><Exercicio /></PrivateRoute>} />
+            <Route path="/fichatreino" element={<PrivateRoute><FichaTreino /></PrivateRoute>} />
+            <Route path="/fichadoaluno" element={<PrivateRoute><FichaDoAluno /></PrivateRoute>} />
           </Routes>
         </div>
         <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
