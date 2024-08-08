@@ -50,7 +50,7 @@ const Header = () => {
             <li>
               <button className={styles.logoutButton} onClick={logout}>
                 <FaUserCircle className={styles.icon} />
-                <span className={styles.navText}>Logout</span>
+                <span className={styles.navText}>Sair</span>
               </button>
             </li>
           )}

@@ -7,6 +7,12 @@ const FichaDoAluno = () => {
     const [ficha, setFicha] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [visibleDays, setVisibleDays] = useState({});
+    const [completedExercises, setCompletedExercises] = useState(() => {
+        const saved = localStorage.getItem('completedExercises');
+        return saved ? JSON.parse(saved) : {};
+    });
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,16 +29,51 @@ const FichaDoAluno = () => {
             }
         })
         .then(response => {
-            console.log('Dados da ficha recebidos:', response.data); // Log para verificar os dados recebidos
+            console.log('Dados da ficha recebidos:', response.data);
             setFicha(response.data);
             setLoading(false);
         })
         .catch(error => {
-            console.log('Erro ao carregar a ficha de treino:', error); // Log de erro
+            console.log('Erro ao carregar a ficha de treino:', error);
             setError('Erro ao carregar a ficha de treino');
             setLoading(false);
         });
     }, [navigate]);
+
+    const toggleVisibility = (dia) => {
+        setVisibleDays(prevState => ({
+            ...prevState,
+            [dia]: !prevState[dia]
+        }));
+    };
+
+    const toggleCompletion = (dia, exercicioIndex) => {
+        setCompletedExercises(prevState => {
+            const updated = {
+                ...prevState,
+                [dia]: {
+                    ...prevState[dia],
+                    [exercicioIndex]: !prevState[dia]?.[exercicioIndex]
+                }
+            };
+            localStorage.setItem('completedExercises', JSON.stringify(updated));
+            return updated;
+        });
+    };
+
+    const diasSemanaOrdenados = [
+        'domingo', 
+        'segunda-feira', 
+        'terça-feira', 
+        'quarta-feira', 
+        'quinta-feira', 
+        'sexta-feira', 
+        'sábado'
+    ];
+
+    const diasOrdenados = ficha 
+        ? Object.keys(ficha).sort((a, b) => diasSemanaOrdenados.indexOf(a.toLowerCase()) - diasSemanaOrdenados.indexOf(b.toLowerCase()))
+        : [];
 
     if (loading) {
         return <div className={styles.container}>Carregando...</div>;
@@ -48,25 +89,38 @@ const FichaDoAluno = () => {
 
     return (
         <div className={styles.container}>
-            {Object.keys(ficha).map((dia, index) => (
+            {diasOrdenados.map((dia, index) => (
                 <div key={index}>
-                    <h2 className={styles.day}>{dia}</h2>
-                    {ficha[dia].length > 0 ? (
-                        ficha[dia].map((exercicio, i) => (
-                            <div key={i} className={styles.exercicioContainer}>
-                                <div className={styles.exercicioInfo}>
-                                    <h3 className={styles.exercicioName}>{exercicio.nome}</h3>
-                                    <p className={styles.exercicioDetail}>Séries: {exercicio.serie}</p>
-                                    <p className={styles.exercicioDetail}>Repetições: {exercicio.repeticao}</p>
+                    <h2
+                        className={styles.day}
+                        onClick={() => toggleVisibility(dia)}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        {dia}
+                    </h2>
+                    {visibleDays[dia] && (
+                        ficha[dia].length > 0 ? (
+                            ficha[dia].map((exercicio, i) => (
+                                <div
+                                    key={i}
+                                    className={`${styles.exercicioContainer} ${completedExercises[dia]?.[i] ? styles.completed : ''}`}
+                                >
+                                    <div className={styles.exercicioInfo}>
+                                        <h3 className={styles.exercicioName}>{exercicio.nome}</h3>
+                                        <p className={styles.exercicioDetail}>Séries: {exercicio.serie}</p>
+                                        <p className={styles.exercicioDetail}>Repetições: {exercicio.repeticao}</p>
+                                    </div>
+                                    <div
+                                        className={styles.check}
+                                        onClick={() => toggleCompletion(dia, i)}
+                                    >
+                                        {completedExercises[dia]?.[i] ? '✅' : '⬜️'}
+                                    </div>
                                 </div>
-                                <div className={styles.exercicioSet}>
-                                    <p>10-12-14</p>
-                                    <p>25Kg</p>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p className={styles.noExercise}>Nenhum exercício para este dia.</p>
+                            ))
+                        ) : (
+                            <p className={styles.noExercise}>Nenhum exercício para este dia.</p>
+                        )
                     )}
                 </div>
             ))}

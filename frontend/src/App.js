@@ -13,6 +13,7 @@ import FichaDoAluno from './pages/FichaDoAluno/FichaDoAluno.js';
 import Login from './pages/Login/Login';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './PrivateRoute';
+import './axiosConfig'; // Importa a configuração do Axios
 
 function App() {
   return (

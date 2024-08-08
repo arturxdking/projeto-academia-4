@@ -23,7 +23,8 @@ export const login = (req, res) => {
                     if (err) return res.status(500).json({ message: 'Erro interno do servidor' });
                     if (!result) return res.status(401).json({ message: 'Credenciais inválidas' });
 
-                    const token = jwt.sign({ id: user.id, role: 'aluno' }, 'your-secret-key', { expiresIn: 86400 });
+                    // Gerar token sem expiração
+                    const token = jwt.sign({ id: user.id, role: 'aluno' }, 'your-secret-key');
                     return res.status(200).json({ message: 'Autenticação bem-sucedida', token, role: 'aluno' });
                 });
             });
@@ -33,7 +34,8 @@ export const login = (req, res) => {
                 if (err) return res.status(500).json({ message: 'Erro interno do servidor' });
                 if (!result) return res.status(401).json({ message: 'Credenciais inválidas' });
 
-                const token = jwt.sign({ id: user.id, role: 'administrador' }, 'your-secret-key', { expiresIn: 86400 });
+                // Gerar token sem expiração
+                const token = jwt.sign({ id: user.id, role: 'administrador' }, 'your-secret-key');
                 return res.status(200).json({ message: 'Autenticação bem-sucedida', token, role: 'administrador' });
             });
         }

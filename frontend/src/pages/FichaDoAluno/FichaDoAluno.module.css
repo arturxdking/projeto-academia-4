@@ -1,8 +1,8 @@
 .container {
     padding: 20px;
     font-family: 'Arial', sans-serif;
-    color: #ffffff;
-    background-color: #121212;
+    color: #000;
+    background-color: #fff;
     min-height: 100vh;
     box-sizing: border-box;
 }
@@ -11,7 +11,7 @@
     text-align: center;
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #ffcc00;
+    color: #000;
     font-weight: bold;
 }
 
@@ -19,7 +19,7 @@
     font-size: 1.5rem;
     margin-top: 20px;
     margin-bottom: 10px;
-    color: #ffcc00;
+    color: #000;
     border-bottom: 2px solid #ffcc00;
     padding-bottom: 5px;
 }
@@ -33,6 +33,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.exercicioContainer.completed {
+    background-color: #1e1e1e; /* Mantendo o fundo original */
+}
+
+.check {
+    font-size: 1.5rem;
+    color: #00ff00; /* Cor verde para o check */
+    cursor: pointer;
+    user-select: none;
 }
 
 .exercicioInfo {
@@ -49,16 +61,6 @@
 .exercicioDetail {
     font-size: 1rem;
     color: #cccccc;
-}
-
-.exercicioSet {
-    text-align: right;
-}
-
-.exercicioSet p {
-    margin: 0;
-    font-size: 1rem;
-    color: #ffcc00;
 }
 
 .noExercise {
@@ -82,5 +84,9 @@
 
     .exercicioDetail {
         font-size: 1rem;
+    }
+
+    .check {
+        font-size: 1.2rem;
     }
 }

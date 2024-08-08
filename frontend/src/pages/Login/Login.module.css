@@ -69,3 +69,13 @@
 .buttonContainer button:hover {
     background-color: #4a5568;
 }
+@media (max-width: 480px) {
+    .title {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    .loginForm {
+        max-width: 60%;
+    }
+}
