@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import { db } from "../db.js";
 
 // método GET para resgatar todos os alunos
@@ -12,34 +13,41 @@ export const getAluno = (_, res) => {
 };
 
 // método POST para criar um novo aluno
-export const postAluno = (req, res) => {
-  const q = "INSERT INTO alunos (`nome`, `cpf`, `data_nascimento`, `sexo`, `email`, `telefone`, `cep`, `estado`, `cidade`, `rua`, `numero`, `fichatreino`) VALUES(?)";
+export const postAluno = async (req, res) => {
+  try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(req.body.senha, saltRounds);
 
-  const values = [
-    req.body.nome,
-    req.body.cpf,
-    req.body.data_nascimento,
-    req.body.sexo,
-    req.body.email,
-    req.body.telefone,
-    req.body.cep,
-    req.body.estado,
-    req.body.cidade,
-    req.body.rua,
-    req.body.numero,
-    req.body.fichatreino ? JSON.stringify(req.body.fichatreino) : null,
-  ];
+    const q = "INSERT INTO alunos (`nome`, `cpf`, `data_nascimento`, `sexo`, `email`, `telefone`, `cep`, `estado`, `cidade`, `rua`, `numero`, `fichatreino`, `senha`) VALUES(?)";
 
-  console.log("Valores para inserir:", values); // Log dos valores
+    const values = [
+      req.body.nome,
+      req.body.cpf,
+      req.body.data_nascimento,
+      req.body.sexo,
+      req.body.email,
+      req.body.telefone,
+      req.body.cep,
+      req.body.estado,
+      req.body.cidade,
+      req.body.rua,
+      req.body.numero,
+      req.body.fichatreino ? JSON.stringify(req.body.fichatreino) : null,
+      hashedPassword, // Salva a senha em formato de hash
+    ];
 
-  db.query(q, [values], (err) => {
-    if (err) {
-      console.error("Erro ao inserir aluno:", err); // Log do erro
-      return res.json(err);
-    }
+    db.query(q, [values], (err) => {
+      if (err) {
+        console.error("Erro ao inserir aluno:", err);
+        return res.json(err);
+      }
 
-    return res.status(200).json("Aluno cadastrado com sucesso.");
-  });
+      return res.status(200).json("Aluno cadastrado com sucesso.");
+    });
+  } catch (err) {
+    console.error("Erro ao gerar hash da senha:", err);
+    return res.status(500).json({ error: "Erro ao gerar hash da senha." });
+  }
 };
 
 // método GET para resgatar um aluno por ID
@@ -71,34 +79,30 @@ export const getAlunoById = (req, res) => {
 };
 
 // método PUT para editar ou atualizar informações de um aluno
-export const updateAluno = (req, res) => {
-  const alunoId = req.params.id;
-  const { nome, cpf, data_nascimento, sexo, email, telefone, cep, estado, cidade, rua, numero, fichatreino } = req.body;
+export const updateAluno = async (req, res) => {
+  try {
+    const alunoId = req.params.id;
+    const { nome, cpf, data_nascimento, sexo, email, telefone, cep, estado, cidade, rua, numero, fichatreino, senha } = req.body;
 
-  if (fichatreino !== undefined) {
-    const q = "UPDATE alunos SET `fichatreino` = ? WHERE `id` = ?";
-    const values = [JSON.stringify(fichatreino), alunoId];
-    db.query(q, values, (err) => {
-      if (err) return res.json(err);
-      return res.status(200).json("Ficha de treino do aluno atualizada com sucesso.");
-    });
-  } else {
-    const q = `
-          UPDATE alunos 
-          SET 
-              nome = ?,
-              cpf = ?,
-              data_nascimento = ?,
-              sexo = ?,
-              email = ?,
-              telefone = ?,
-              cep = ?,
-              estado = ?,
-              cidade = ?,
-              rua = ?,
-              numero = ?
-          WHERE id = ?
-      `;
+    let hashedPassword = null;
+    if (senha) {
+      hashedPassword = await bcrypt.hash(senha, 10);
+    }
+
+    const fields = [
+      'nome = ?',
+      'cpf = ?',
+      'data_nascimento = ?',
+      'sexo = ?',
+      'email = ?',
+      'telefone = ?',
+      'cep = ?',
+      'estado = ?',
+      'cidade = ?',
+      'rua = ?',
+      'numero = ?',
+    ];
+
     const values = [
       nome,
       cpf,
@@ -111,12 +115,33 @@ export const updateAluno = (req, res) => {
       cidade,
       rua,
       numero,
-      alunoId
     ];
+
+    if (hashedPassword) {
+      fields.push('senha = ?');
+      values.push(hashedPassword);
+    }
+
+    if (fichatreino !== undefined) {
+      fields.push('fichatreino = ?');
+      values.push(JSON.stringify(fichatreino));
+    }
+
+    values.push(alunoId);
+
+    const q = `
+          UPDATE alunos 
+          SET ${fields.join(', ')}
+          WHERE id = ?
+      `;
+
     db.query(q, values, (err) => {
       if (err) return res.json(err);
       return res.status(200).json("Informações do aluno atualizadas com sucesso.");
     });
+  } catch (err) {
+    console.error("Erro ao atualizar aluno:", err);
+    return res.status(500).json({ error: "Erro ao atualizar as informações do aluno." });
   }
 };
 

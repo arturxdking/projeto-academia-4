@@ -26,6 +26,7 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
       aluno.cidade.value = onEdit.cidade;
       aluno.rua.value = onEdit.rua;
       aluno.numero.value = onEdit.numero;
+      aluno.senha.value = onEdit.senha || ""; // Preenche o campo de senha se houver valor
     }
   }, [onEdit]);
 
@@ -45,7 +46,8 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
       !aluno.estado.value ||
       !aluno.cidade.value ||
       !aluno.rua.value ||
-      !aluno.numero.value
+      !aluno.numero.value ||
+      !aluno.senha.value // Verifica se o campo de senha está preenchido
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -72,6 +74,7 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
             cidade: aluno.cidade.value,
             rua: aluno.rua.value,
             numero: aluno.numero.value,
+            senha: aluno.senha.value // Envia o valor da senha
           },
           config
         );
@@ -91,12 +94,14 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
             cidade: aluno.cidade.value,
             rua: aluno.rua.value,
             numero: aluno.numero.value,
+            senha: aluno.senha.value // Envia o valor da senha
           },
           config
         );
         toast.success(response.data);
       }
 
+      // Reseta os campos do formulário após o envio
       aluno.nome.value = "";
       aluno.cpf.value = "";
       aluno.data_nascimento.value = "";
@@ -108,6 +113,7 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
       aluno.cidade.value = "";
       aluno.rua.value = "";
       aluno.numero.value = "";
+      aluno.senha.value = ""; // Reseta o campo de senha
 
       setOnEdit(null);
       getAlunos();
@@ -174,6 +180,10 @@ const FormCadastroAluno = ({ getAlunos, onEdit, setOnEdit }) => {
           <div className={`${styles.campo} ${styles.campo_telefone}`}>
             <label>Telefone</label>
             <input className={styles.input} name="telefone" type="text" placeholder="0000000000"/>
+          </div>
+          <div className={`${styles.campo} ${styles.campo_senha}`}>
+            <label>Senha</label>
+            <input className={styles.input} name="senha" type="password" placeholder="Digite uma senha" />
           </div>
         </div>
         <div className={styles['botao-container']}>

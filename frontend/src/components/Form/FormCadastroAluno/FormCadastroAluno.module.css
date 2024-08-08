@@ -40,7 +40,8 @@
 
 .campo_cpf,
 .campo_nascimento,
-.campo_sexo{
+.campo_sexo,
+.campo_senha {
   flex: 0;
 }
 
@@ -49,7 +50,7 @@
 .campo_cidade,
 .campo_numero,
 .campo_email,
-.campo_telefone {
+.campo_telefone{
   flex: 0;
 }
 
